@@ -66,7 +66,7 @@ tracer = Tracer(
 middleware = FlaskMiddleware(
     app,
     exporter=AzureExporter(
-        connection_string="InstrumentationKey=3e02ef45-f9e3-42c7-a971-b3fd25336e1b"
+        connection_string=conn_string
     ),
     sampler=ProbabilitySampler(rate=1.0),
 )
