@@ -89,8 +89,9 @@ else:
 
 # Redis Connection
 # r = redis.Redis()
-# Redis for AKS server
+# Redis configurations
 redis_server = os.environ['REDIS']
+
 # Redis Connection to another container
 try:
    if "REDIS_PWD" in os.environ:
@@ -101,7 +102,7 @@ try:
       r = redis.Redis(redis_server)
    r.ping()
 except redis.ConnectionError:
-   exit('Connection to Redis failed, existing...')
+   exit('Failed to connect to Redis, terminating.')
 
 # Change title to host name to demo NLB
 if app.config['SHOWHOST'] == "true":
