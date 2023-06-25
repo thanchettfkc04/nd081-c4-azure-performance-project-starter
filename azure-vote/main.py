@@ -40,7 +40,7 @@ config_integration.trace_integrations(["logging"])
 config_integration.trace_integrations(["requests"])
 logger = logging.getLogger(__name__)
 handler = AzureLogHandler(connection_string=conn_string)
-handler.setFormatter(logging.Formatter('%(traceId)s %(spanId)s %(message)s'))
+handler.setFormatter(logging.Formatter('%(message)s'))
 logger.addHandler(handler)
 # Logging custom Events 
 logger.addHandler(AzureEventHandler(connection_string=conn_string))
@@ -66,7 +66,7 @@ tracer = Tracer(
 middleware = FlaskMiddleware(
     app,
     exporter=AzureExporter(
-        connection_string="InstrumentationKey=3e02ef45-f9e3-42c7-a971-b3fd25336e1b"
+        connection_string=conn_string
     ),
     sampler=ProbabilitySampler(rate=1.0),
 )
@@ -164,4 +164,4 @@ if __name__ == "__main__":
     # TODO: Use the statement below when running locally
     # app.run() 
     # TODO: Use the statement below before deployment to VMSS
-    app.run(host='0.0.0.0', threaded=True, debug=True) # remote
+    app.run(host='0.0.0.0', threaded=True, debug=True, port=5000) # remote
